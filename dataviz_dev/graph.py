@@ -41,9 +41,42 @@ def visualize_days():
     plt.savefig('Days.png')
     
     plt.clf()
+    
+
+def visualize_type():
+    '''Visualize data by category as a bar graph'''
+    
+    parsed_data = parse.parse(MY_FILE, ',')
+    
+    # create counter-dict mapping 'category -> num_occurrences'
+    counter = Counter(item['Category'] for item in parsed_data)
+    
+    labels = tuple(counter.keys())
+    
+    xlocations = np.arange(len(labels)) + 0.5
+    
+    width = 0.5
+    
+    # plot bars for each y-axis data point
+    plt.bar(xlocations, counter.values(), width=width)
+    
+    # place x-ticks at center of each bar
+    plt.xticks(xlocations + width/2, labels, rotation=90)
+    
+    # make enough space for labels to fit
+    plt.subplots_adjust(bottom = 0.4)
+    
+    # adjust size of entire figure
+    plt.rcParams['figure.figsize'] = (12, 8)
+    
+    plt.savefig('Type.png')
+    
+    plt.clf()
 
 
 def main():
+
+    visualize_type()
     visualize_days()
     
 
